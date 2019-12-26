@@ -1,0 +1,57 @@
+name: rptmobile
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  flutter_svg: ^0.14.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/users/
+
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Raleway-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Raleway-Bold.ttf
+          weight: 500
+        - asset: assets/fonts/Raleway-ExtraBold.ttf
+          weight: 700
+    - family: 'Oswald'
+      fonts:
+        - asset: assets/fonts/Oswald-Regular.ttf  
+        - asset: assets/fonts/Oswald-Light.ttf  
+          weight: 100
+        - asset: assets/fonts/Oswald-Medium.ttf  
+          weight: 300
+        - asset: assets/fonts/Oswald-Bold.ttf  
+          weight: 500
+    - family: 'Poppins'
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf  
+        - asset: assets/fonts/Poppins-Italic.ttf  
+          style: italic
+        - asset: assets/fonts/Poppins-Light.ttf  
+          weight: 100
+        - asset: assets/fonts/Poppins-Medium.ttf  
+          weight: 300
+        - asset: assets/fonts/Poppins-Bold.ttf  
+          weight: 500
