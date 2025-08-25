@@ -20,7 +20,7 @@ class CardServico extends StatelessWidget {
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Arquivo salvo em ${filePath}")));
+      ).showSnackBar(SnackBar(content: Text("Arquivo salvo em $filePath")));
 
       await OpenFile.open(filePath); // abre o PDF no app padrão
     } catch (e) {

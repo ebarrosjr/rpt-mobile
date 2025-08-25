@@ -54,7 +54,7 @@ class CreditosPage extends StatelessWidget {
                   return Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.08),
+                      color: Colors.white.withAlpha(8),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: isSvg

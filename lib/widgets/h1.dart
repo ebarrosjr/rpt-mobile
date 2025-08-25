@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class H1 extends StatelessWidget {
   final String titulo;
   final Color cor;
-  H1({
+  const H1({
     super.key,
     required this.titulo,
     this.cor = const Color.fromARGB(255, 4, 43, 75),

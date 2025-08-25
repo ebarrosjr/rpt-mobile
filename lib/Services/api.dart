@@ -127,9 +127,9 @@ class Api {
         : "/get-servico-plataforma/$tipoPlataformaId";
 
     final cacheKey =
-        "cache_servicos_${tipoPlataformaId}${plataformaId != null ? "_$plataformaId" : ""}";
+        "cache_servicos_$tipoPlataformaId${plataformaId != null ? "_$plataformaId" : ""}";
     final cacheDateKey =
-        "cache_date_servicos_${tipoPlataformaId}${plataformaId != null ? "_$plataformaId" : ""}";
+        "cache_date_servicos_$tipoPlataformaId${plataformaId != null ? "_$plataformaId" : ""}";
 
     return _fetchWithCache<Servico>(
       endpoint: endpoint,
