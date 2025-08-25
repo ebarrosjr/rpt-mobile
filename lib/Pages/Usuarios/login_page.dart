@@ -200,7 +200,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 50),
 
               // Logo animada
               _animatedFadeSlide(
@@ -208,7 +208,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                 100,
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               // Título animado
               _animatedFadeSlide(
@@ -225,13 +225,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
               // Grid animada
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: _animatedFadeSlide(_buildPlataformasGrid(), 500),
               ),
 
               // Botões menu animados
               _animatedFadeSlide(const BotoesMenu(), 700),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
 
               // Login animado
               _animatedFadeSlide(

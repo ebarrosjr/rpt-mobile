@@ -49,25 +49,28 @@ class CardUsuario extends StatelessWidget {
                   children: [
                     _buildMemberImage(membro),
                     membro.lattes != null
-                        ? GestureDetector(
-                            onTap: () {
-                              _launchURL(
-                                "https://lattes.cnpq.br/${membro.lattes!}",
-                              );
-                            },
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Colors.black45,
-                                borderRadius: BorderRadius.circular(8),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/lattes.png'),
-                                  fit: BoxFit.cover,
+                        ? Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: GestureDetector(
+                              onTap: () {
+                                _launchURL(
+                                  "https://lattes.cnpq.br/${membro.lattes!}",
+                                );
+                              },
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  color: Colors.black45,
+                                  borderRadius: BorderRadius.circular(8),
+                                  image: DecorationImage(
+                                    image: AssetImage('assets/lattes.png'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                          )
+                        )
                         : SizedBox(width: 1),
                   ],
                 ),

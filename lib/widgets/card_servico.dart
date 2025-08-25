@@ -146,15 +146,15 @@ class CardServico extends StatelessWidget {
             children: [
               PrecoContainer(
                 preco: servico.precoFiocruz,
-                label: 'Preço Fiocruz',
+                label: 'R\$ Fiocruz',
               ),
               PrecoContainer(
                 preco: servico.precoPublico,
-                label: 'Preço Público',
+                label: 'R\$ Público',
               ),
               PrecoContainer(
                 preco: servico.precoPrivado,
-                label: 'Preço Privado',
+                label: 'R\$ Privado',
               ),
             ],
           ),
