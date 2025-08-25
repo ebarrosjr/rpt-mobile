@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 64 64"
+   fill="none"
+   id="x0eVg"
+   path="sas/filled/brand/interact.svg"
+   version="1.1"
+   sodipodi:docname="interact_logo.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs27" />
+  <sodipodi:namedview
+     id="namedview25"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     showgrid="false"
+     inkscape:zoom="3.695124"
+     inkscape:cx="48.848158"
+     inkscape:cy="45.059381"
+     inkscape:window-width="1866"
+     inkscape:window-height="1016"
+     inkscape:window-x="54"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="x0eVg" />
+  <g
+     id="g927"
+     transform="translate(4.8964165,6.3603152)">
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 42.792067,12.293106 c 6.092273,3.953488 9.9151,9.674534 9.9151,16.038832 0,11.933683 -13.460753,21.613447 -30.064313,21.613447 -8.246908,0 -15.7094176,-2.384661 -21.142854,-6.249245 l 11.076093,-8.424718 c 3.498505,2.703672 8.492623,4.392784 14.035939,4.392784 10.584421,0 19.16603,-6.1708 19.16603,-13.779685 0,-4.256811 -2.693213,-8.074328 -6.929105,-10.600191 l 3.93265,-2.991224 z"
+       fill="#0a406b"
+       id="path2"
+       style="stroke-width:0.804569" />
+    <path
+       d="m 22.927913,11.730551 v 22.523414 c 1.479923,0.402606 3.074981,0.617023 4.737943,0.617023 1.03017,0 2.034271,-0.08367 3.001685,-0.245795 V 11.730551 Z"
+       fill="#0a406b"
+       id="path20"
+       style="stroke-width:0.804569" />
+    <path
+       d="M 30.67277,1.6562589 V 7.847969 H 22.927913 V 1.5778134 c 2.206851,-0.2980846 4.926212,-0.376522 7.744857,0.073216"
+       fill="#b7b9b9"
+       id="path22"
+       style="stroke-width:0.804569" />
+  </g>
+</svg>
