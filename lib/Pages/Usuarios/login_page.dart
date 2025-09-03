@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:rptmobile/Pages/Comum/creditos.dart';
 import 'package:rptmobile/Pages/Plataformas/tipo_plataforma.dart';
 import 'package:rptmobile/Services/api.dart';
+import 'package:rptmobile/Services/auth_service.dart';
 import 'package:rptmobile/widgets/botoes_menu_home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rptmobile/Pages/Comum/home_page.dart';
 import 'package:rptmobile/Models/plataformas.dart';
@@ -42,13 +47,63 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       final uri = Uri.base;
       if (uri.scheme == "rptmobile" && uri.host == "auth") {
         final token = uri.queryParameters["token"];
-        if (token != null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const HomePage()),
-          );
+        final success = uri.queryParameters["success"];
+        final error = uri.queryParameters["error"];
+
+        if (success == "true" && token != null) {
+          // Salva o token usando GetX
+          AuthService.to.saveUserData(token).then((_) {
+            Get.offAll(() => const HomePage());
+          });
+        } else if (error != null) {
+          _showErrorDialog(error);
         }
       }
     }
+  }
+
+  Future<void> _saveUserData(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_token', token);
+
+    // Decodifica o token para extrair dados do usuário
+    final parts = token.split('.');
+    if (parts.length == 2) {
+      final payload = json.decode(utf8.decode(base64.decode(parts[0])));
+      await prefs.setString('user_data', json.encode(payload['data']));
+    }
+  }
+
+  void _showErrorDialog(String errorCode) {
+    String message;
+
+    switch (errorCode) {
+      case 'sem_permissao':
+        message = 'Você não possui permissão para acessar o sistema.';
+        break;
+      case 'cpf_nao_encontrado':
+        message = 'CPF não encontrado na autenticação.';
+        break;
+      case 'cadastro_falhou':
+        message = 'Falha ao criar cadastro. Entre em contato com o suporte.';
+        break;
+      default:
+        message = 'Erro durante o login. Tente novamente.';
+    }
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Erro de Login'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _loadPlataformas() async {
@@ -225,7 +280,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
               // Grid animada
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: _animatedFadeSlide(_buildPlataformasGrid(), 500),
               ),
 

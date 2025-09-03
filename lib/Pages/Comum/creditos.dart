@@ -79,9 +79,21 @@ class CreditosPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     _CreditLine(
+                      name: 'PEDRO ERTHAL',
+                      area: 'COGETIC',
+                      role: 'Coordenação de Sistemas',
+                    ),
+                    SizedBox(height: 15),
+                    _CreditLine(
                       name: 'EVERTON C B JÚNIOR',
                       area: 'VPPCB - RPT',
                       role: 'Projeto e desenvolvimento',
+                    ),
+                    SizedBox(height: 15),
+                    _CreditLine(
+                      name: 'JEAN VOLPONI',
+                      area: 'COGETIC - CPC',
+                      role: 'Gestão de Microsserviços',
                     ),
                     SizedBox(height: 15),
                     _CreditLine(
