@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:rptmobile/Controllers/plataformas_controller.dart';
 import 'package:rptmobile/Pages/Comum/creditos.dart';
 import 'package:rptmobile/Pages/Plataformas/tipo_plataforma.dart';
 import 'package:rptmobile/Services/api.dart';
@@ -53,7 +55,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         if (success == "true" && token != null) {
           // Salva o token usando GetX
           AuthService.to.saveUserData(token).then((_) {
-            Get.offAll(() => const HomePage());
+            Get.find<PlataformasController>().atualizarPlataformas().then((_) {
+              Get.offAll(() => const HomePage());
+            });
           });
         } else if (error != null) {
           _showErrorDialog(error);
@@ -294,7 +298,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
               // Login animado
               _animatedFadeSlide(
                 GestureDetector(
-                  onTap: _login,
+                  //onTap: _login,
+                  onTap: () => Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(builder: (_) => HomePage())),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [

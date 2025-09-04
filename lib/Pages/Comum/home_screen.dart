@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:rptmobile/Controllers/plataformas_controller.dart';
 import 'package:rptmobile/Models/plataformas.dart';
 import 'package:rptmobile/Services/api.dart';
 import 'package:rptmobile/widgets/h1.dart';
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     isDrawerOpen = false;
     icon = Icons.menu_sharp;
     super.initState();
+    Get.find<PlataformasController>().loadPlataformas();
   }
 
   @override

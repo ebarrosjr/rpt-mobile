@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rptmobile/Controllers/plataformas_controller.dart';
 import 'package:rptmobile/Pages/Usuarios/login_page.dart';
 import 'package:rptmobile/Pages/Comum/home_page.dart';
 import 'package:rptmobile/Services/auth_service.dart';
@@ -9,6 +10,7 @@ import 'package:rptmobile/Services/notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(PlataformasController(), permanent: true);
   runApp(RptApp());
 }
 
