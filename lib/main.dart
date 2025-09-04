@@ -10,37 +10,25 @@ import 'package:rptmobile/Services/notification_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Controllers globais
   Get.put(PlataformasController(), permanent: true);
-  runApp(RptApp());
+
+  runApp(const RptApp());
 }
 
 class RptApp extends StatelessWidget {
-  RptApp({super.key});
-  final NotificationService _notificationService = NotificationService();
-
-  // Chaev privada Firebase: GJEJ6duew4RCTLW2bRTIhbrFYp5sNMGKXJS9HXsyrsU
-  // Par de chaves Firebase: BBCMK_MRlNhn_ib9MJ_0USY89i9yPjgLbuc07XUf3FGP40IK3M8-21HUR72sGYRXuheztCC2f3j1xhhs0C03ifs
+  const RptApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _notificationService.init();
-
     return GetMaterialApp(
       title: 'RPT Mobile',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FutureBuilder(
-        future: _checkIfUserIsLogged(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SplashScreen(); // Tela de carregamento
-          } else {
-            return snapshot.data ?? const LoginPage();
-          }
-        },
-      ),
+      home: const SplashWrapper(),
       initialBinding: MainBinding(),
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
@@ -48,15 +36,22 @@ class RptApp extends StatelessWidget {
       popGesture: Get.isPopGestureEnable,
     );
   }
+}
 
-  Future<Widget> _checkIfUserIsLogged() async {
-    // Inicializa o AuthService
+/// SplashWrapper gerencia inicializações assíncronas antes de decidir a tela inicial
+class SplashWrapper extends StatelessWidget {
+  const SplashWrapper({super.key});
+
+  Future<Widget> _initApp() async {
+    // Inicializa notificações
+    final notificationService = NotificationService();
+    await notificationService.init();
+
+    // Inicializa AuthService
     final authService = Get.put(AuthService(), permanent: true);
-
-    // Carrega os dados do usuário
     await authService.loadUserData();
 
-    // Pequeno delay para garantir que tudo está carregado
+    // Pequeno delay para UX
     await Future.delayed(const Duration(milliseconds: 300));
 
     if (authService.isLogged.value && authService.token.value.isNotEmpty) {
@@ -65,13 +60,36 @@ class RptApp extends StatelessWidget {
       return const LoginPage();
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Widget>(
+      future: _initApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const SplashScreen();
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Text(
+                "Erro ao inicializar o app: ${snapshot.error}",
+                style: const TextStyle(color: Colors.red),
+              ),
+            ),
+          );
+        } else {
+          return snapshot.data ?? const LoginPage();
+        }
+      },
+    );
+  }
 }
 
-// Binding para inicializar os serviços
+// Binding para inicializar dependências globais
 class MainBinding extends Bindings {
   @override
   void dependencies() {
-    // Os serviços serão inicializados no FutureBuilder
+    // Outros serviços podem ser inicializados aqui futuramente
   }
 }
 

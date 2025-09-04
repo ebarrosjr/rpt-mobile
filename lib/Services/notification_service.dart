@@ -7,39 +7,73 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    // Inicializar notificações locais
+    // Configuração Android
     const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initSettings = InitializationSettings(
-      android: androidSettings,
+
+    // Configuração iOS (Darwin)
+    const DarwinInitializationSettings iosSettings = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
     );
 
-    await _localNotifications.initialize(initSettings);
+    // Inicialização cruzada
+    const InitializationSettings initSettings = InitializationSettings(
+      android: androidSettings,
+      iOS: iosSettings,
+    );
 
-    // Pedir permissão
-    await _messaging.requestPermission();
+    await _localNotifications.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        // Tratar clique na notificação
+        if (response.payload != null) {
+          print("Payload da notificação: ${response.payload}");
+        }
+      },
+    );
 
-    // Token do dispositivo
-    String? token = await _messaging.getToken();
-    print("TOKEN DO DEVICE: $token");
+    // Pedir permissão no iOS
+    await _messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-    // TODO: Enviar token para o backend CakePHP
+    // Token FCM (Firebase Cloud Messaging)
+    String? fcmToken = await _messaging.getToken();
+    print("TOKEN FCM: $fcmToken");
 
-    // Listener para mensagens foreground
-    FirebaseMessaging.onMessage.listen((message) {
-      _localNotifications.show(
-        0,
-        message.notification?.title,
-        message.notification?.body,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            'canal_principal',
-            'Notificações',
-            importance: Importance.high,
-            priority: Priority.high,
+    // Token APNS (somente iOS, em device físico)
+    String? apnsToken = await _messaging.getAPNSToken();
+    print("TOKEN APNS: $apnsToken");
+
+    // TODO: enviar tokens para seu backend CakePHP
+
+    // Listener para mensagens em foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = notification?.android;
+
+      if (notification != null) {
+        _localNotifications.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: android != null
+                ? const AndroidNotificationDetails(
+                    'canal_principal',
+                    'Notificações',
+                    importance: Importance.high,
+                    priority: Priority.high,
+                  )
+                : null,
+            iOS: const DarwinNotificationDetails(),
           ),
-        ),
-      );
+        );
+      }
     });
   }
 }
